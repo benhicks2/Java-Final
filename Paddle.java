@@ -42,6 +42,12 @@ public class Paddle {
     public double getMovement() {
         return yChange;
     }
+    public double getXPos() {
+        return x;
+    }
+    public double getWidth() {
+        return width;
+    }
 
     public Bounds getBounds() {
         Rectangle rect = new Rectangle(x, y, width, height);

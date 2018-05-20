@@ -2,13 +2,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import java.util.Random;
 
 public class Ball {
     private Pong pong;
     private static final double width = 20, height = 20;
     private double x, y, cWidth, cHeight;
-    private final double xChangeOriginal = -3, yChangeOriginal = -2; //original x and y velocity
-    private double xChange = xChangeOriginal, yChange = yChangeOriginal; //x and y velocity
+    private double xChange, yChange; //x and y velocity
     private String user = "user", computer = "computer";
 
     public Ball(Pong pong, double cWidth, double cHeight) {
@@ -17,6 +17,7 @@ public class Ball {
         this.cHeight = cHeight;
         x = cWidth/2;
         y = cHeight/2;
+        randomDirection();
     }
     public void update() {
         x += xChange;
@@ -43,10 +44,14 @@ public class Ball {
     }
 
     public void checkCollision() {
-        if (pong.getPlayer(user).getBounds().intersects(getBounds())) {
+        Paddle userPaddle = pong.getPlayer(user);
+        Paddle computerPaddle = pong.getPlayer(computer);
+        double xPosUser = userPaddle.getXPos();
+        double xPosComputer = computerPaddle.getXPos();
+        if (userPaddle.getBounds().intersects(getBounds()) && x >= xPosUser + userPaddle.getWidth() - 6) {
             changeDirection(user);
         }
-        if (pong.getPlayer(computer).getBounds().intersects(getBounds())) {
+        if (computerPaddle.getBounds().intersects(getBounds()) && x + width <= xPosComputer + 6) {
             changeDirection(computer);
         }
     }
@@ -66,11 +71,27 @@ public class Ball {
         }
     }
     public void resetBall(String paddle) {
+        int yMin = -3;
+        int yMax = 3;
+        int xDirection = 1;
         x = cWidth/2;
         y = cHeight/2;
-        xChange = xChangeOriginal;
-        yChange = yChangeOriginal;
+        if (paddle == computer) {
+            xDirection = -1;
+        }
+        randomDirection();
         pong.increaseScore(paddle);
+    }
+    public void randomDirection() {
+        int yMin = -3;
+        int yMax = 3;
+        int xDirection = -1;
+        Random rand = new Random();
+        xChange = 3*xDirection;
+        yChange = yMin + (yMax  - yMin)*rand.nextDouble();
+        if (Math.abs(yChange) <= 0.3) {
+            yChange = 1;
+        }
     }
     public Bounds getBounds() {
         Rectangle rect = new Rectangle(x, y, width, height);
