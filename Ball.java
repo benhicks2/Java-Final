@@ -76,10 +76,8 @@ public class Ball {
         int xDirection = 1;
         x = cWidth/2;
         y = cHeight/2;
-        if (paddle == computer) {
-            xDirection = -1;
-        }
-        randomDirection();
+        if (paddle == computer)
+            xDirection = -1
         pong.increaseScore(paddle);
     }
     public void randomDirection() {
