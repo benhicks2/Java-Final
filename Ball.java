@@ -10,6 +10,7 @@ public class Ball {
     private double x, y, p2Width, p2Height;
     private double xChange, yChange; //x and y velocity
     private String player1 = "player1", player2 = "player2";
+    public int difficultyCounter = 0;
 
     public Ball(Pong pong, double p2Width, double p2Height) {
         this.pong = pong;
@@ -20,7 +21,7 @@ public class Ball {
         randomDirection(-1);
     }
     public void update() {
-        x += xChange;
+        x += (xChange + (difficultyCounter * .4));
         y += yChange;
 
         if (x < 0)
@@ -60,6 +61,7 @@ public class Ball {
             yChange += yDiff;
         else if (pong.getPlayer(paddle).getMovement() < 0 && yChange > 0)
             yChange -= yDiff;
+        difficultyCounter += 1;
     }
     public void resetBall(String paddle) {
         int yMin = -3;
@@ -71,6 +73,7 @@ public class Ball {
             xDirection = -1;
         randomDirection(xDirection);
         pong.increaseScore(paddle);
+        difficultyCounter = 0;
     }
     public void randomDirection(int xDirection) {
         int yMin = -4;

@@ -82,19 +82,19 @@ public class Pong extends Application {
 //detect keypress
         s.setOnKeyPressed(a -> {
             if (a.getCode() == KeyCode.W)
-                p1Paddle.move(-1, true);
+                p1Paddle.move(-1.5, true);
             if (a.getCode() == KeyCode.S)
-                p1Paddle.move(1, true);
+                p1Paddle.move(1.5, true);
             if (a.getCode() == KeyCode.O)
-                p2Paddle.move(-1, true);
+                p2Paddle.move(-1.5, true);
             if (a.getCode() == KeyCode.L)
-                p2Paddle.move(1, true);
+                p2Paddle.move(1.5, true);
         });
         s.setOnKeyReleased(a -> {
             if (a.getCode() == KeyCode.W || a.getCode() == KeyCode.S)
-                p1Paddle.move(1, false);
+                p1Paddle.move(2, false);
             if (a.getCode() == KeyCode.O || a.getCode() == KeyCode.L)
-                p2Paddle.move(1, false);
+                p2Paddle.move(2, false);
         });
 
 //animation
