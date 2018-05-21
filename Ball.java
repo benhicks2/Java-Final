@@ -40,7 +40,7 @@ public class Ball {
     }
     public void paint(GraphicsContext pen) {
         pen.setFill(Color.WHITE);
-        pen.fillRect(x, y, width, height);
+        pen.fillOval(x, y, width, height);
     }
 
     public void checkCollision() {

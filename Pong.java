@@ -10,6 +10,9 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Text;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Font;
 
 public class Pong extends Application {
     private final int cWidth = 700;
@@ -17,6 +20,10 @@ public class Pong extends Application {
 
     private int scoreUser = 0;
     private int scoreComputer = 0;
+    double textSize = 30;
+    String font = "Gotham";
+    Text uScore = new Text(cWidth/2 - 50 - 15, 40, "" + scoreUser);
+    Text cScore = new Text(cWidth/2 + 50, 40, "" + scoreComputer);
 
     static boolean down = false;
 
@@ -34,9 +41,11 @@ public class Pong extends Application {
     public void increaseScore(String paddle) {
         if (paddle == "user") {
             scoreUser++;
+            uScore.setText("" + scoreUser);
         }
         else {
             scoreComputer++;
+            cScore.setText("" + scoreComputer);
         }
     }
     public Paddle getPlayer(String paddle) {
@@ -55,7 +64,10 @@ public class Pong extends Application {
     public void start(Stage primary) {
         GraphicsContext pen = c.getGraphicsContext2D();
 
-        draw(pen);
+        uScore.setFill(Color.WHITE);
+        cScore.setFill(Color.WHITE);
+        uScore.setFont(Font.font(font, FontWeight.BOLD, textSize));
+        cScore.setFont(Font.font(font, FontWeight.BOLD, textSize));
 
         BorderPane bp = new BorderPane();
         bp.setCenter(c);
@@ -63,6 +75,11 @@ public class Pong extends Application {
         Scene s = new Scene(bp);
         primary.setScene(s);
         primary.setTitle("Pong");
+
+        bp.getChildren().add(uScore);
+        bp.getChildren().add(cScore);
+
+        draw(pen);
 
 //detect keypress
         s.setOnKeyPressed(e -> {
@@ -105,10 +122,10 @@ public class Pong extends Application {
         //background
         pen.setFill(Color.BLACK);
         pen.fillRect(0, 0, cWidth, cHeight);
-        //score
+
         pen.setFill(Color.WHITE);
-        pen.fillText("" + scoreUser, cWidth/2 - 50, 20);
-        pen.fillText("" + scoreComputer, cWidth/2 + 50, 20);
+        pen.fillRect(cWidth/2 - 1, 0, 2, cHeight);
+        //score
     }
 
 }
