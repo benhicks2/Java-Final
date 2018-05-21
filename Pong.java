@@ -83,34 +83,34 @@ public class Pong extends Application {
         draw(pen);
 
 //detect keypress
-        s.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.W) {
+        s.setOnKeyPressed(a -> {
+            if (a.getCode() == KeyCode.W) {
                 p1Down = true;
                 p1Paddle.move(-1, true);
             }
-            if (e.getCode() == KeyCode.S) {
+            if (a.getCode() == KeyCode.S) {
                 p1Down = true;
                 p1Paddle.move(1, true);
             }
         });
-        s.setOnKeyReleased(e -> {
-            if (e.getCode() == KeyCode.W || e.getCode() == KeyCode.S) {
+        s.setOnKeyReleased(a -> {
+            if (a.getCode() == KeyCode.W || a.getCode() == KeyCode.S) {
                 p1Paddle.move(1, false);
             }
         });
 
-        s.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.O) {
+        s.setOnKeyPressed(b -> {
+            if (b.getCode() == KeyCode.O) {
                 p2Down = true;
                 p2Paddle.move(-1, true);
             }
-            if (e.getCode() == KeyCode.L) {
+            if (b.getCode() == KeyCode.L) {
                 p2Down = true;
                 p2Paddle.move(1, true);
             }
         });
-        s.setOnKeyReleased(e -> {
-            if (e.getCode() == KeyCode.O || e.getCode() == KeyCode.L) {
+        s.setOnKeyReleased(b -> {
+            if (b.getCode() == KeyCode.O || b.getCode() == KeyCode.L) {
                 p2Paddle.move(1, false);
             }
         });
