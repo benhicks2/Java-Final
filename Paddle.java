@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 public class Paddle {
     private Pong pong;
-    private static final double width = 30, height = 100;
+    private static final double width = 20, height = 80;
     private double x, y, cWidth, cHeight;
     private double speed = 5;
     private double yChange = 0;

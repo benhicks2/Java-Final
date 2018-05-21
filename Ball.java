@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Ball {
     private Pong pong;
-    private static final double width = 20, height = 20;
+    private static final double width = 15, height = 15;
     private double x, y, cWidth, cHeight;
     private double xChange, yChange; //x and y velocity
     private String user = "user", computer = "computer";
@@ -83,10 +83,10 @@ public class Ball {
         pong.increaseScore(paddle);
     }
     public void randomDirection(int xDirection) {
-        int yMin = -3;
-        int yMax = 3;
+        int yMin = -4;
+        int yMax = 4;
         Random rand = new Random();
-        xChange = 3*xDirection;
+        xChange = 4*xDirection;
         yChange = yMin + (yMax  - yMin)*rand.nextDouble();
         if (Math.abs(yChange) <= 0.3) {
             yChange = 1;

@@ -12,8 +12,8 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
 public class Pong extends Application {
-    private final int cWidth = 600;
-    private final int cHeight = 600;
+    private final int cWidth = 700;
+    private final int cHeight = 500;
 
     private int scoreUser = 0;
     private int scoreComputer = 0;
