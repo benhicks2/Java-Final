@@ -23,18 +23,14 @@ public class Ball {
         x += xChange;
         y += yChange;
 
-        if (x < 0) {
+        if (x < 0)
             resetBall(computer);
-        }
-        else if (x > cWidth + width) {
+        else if (x > cWidth + width)
             resetBall(user);
-        }
-        else if (y <= 0) {
+        else if (y <= 0)
             yChange *= -1;
-        }
-        else if (y + height >= cHeight) {
+        else if (y + height >= cHeight)
             yChange *= -1;
-        }
 
         checkCollision();
     }
@@ -48,35 +44,29 @@ public class Ball {
         Paddle computerPaddle = pong.getPlayer(computer);
         double xPosUser = userPaddle.getXPos();
         double xPosComputer = computerPaddle.getXPos();
-        if (userPaddle.getBounds().intersects(getBounds()) && x >= xPosUser + userPaddle.getWidth() - 6) {
+        if (userPaddle.getBounds().intersects(getBounds()) && x >= xPosUser + userPaddle.getWidth() - 6)
             changeDirection(user);
-        }
-        if (computerPaddle.getBounds().intersects(getBounds()) && x + width <= xPosComputer + 6) {
+        if (computerPaddle.getBounds().intersects(getBounds()) && x + width <= xPosComputer + 6)
             changeDirection(computer);
-        }
     }
     public void changeDirection(String paddle) {
         xChange *= -1;
         int yDiff = 1;
-        if (pong.getPlayer(paddle).getMovement() < 0 && yChange < 0) {
+        if (pong.getPlayer(paddle).getMovement() < 0 && yChange < 0)
             yChange -= yDiff;
-        }
-        else if (pong.getPlayer(paddle).getMovement() > 0 && yChange > 0) {
+        else if (pong.getPlayer(paddle).getMovement() > 0 && yChange > 0)
             yChange += yDiff;
-        }
-        else if (pong.getPlayer(paddle).getMovement() > 0 && yChange < 0) {
+        else if (pong.getPlayer(paddle).getMovement() > 0 && yChange < 0)
             yChange += yDiff;
-        }
-        else if (pong.getPlayer(paddle).getMovement() < 0 && yChange > 0) {
+        else if (pong.getPlayer(paddle).getMovement() < 0 && yChange > 0)
             yChange -= yDiff;
-        }
     }
     public void resetBall(String paddle) {
         int yMin = -3;
         int yMax = 3;
         int xDirection = 1;
-        x = cWidth/2;
-        y = cHeight/2;
+        x = cWidth / 2;
+        y = cHeight / 2;
         if (paddle == computer)
             xDirection = -1;
         randomDirection(xDirection);
@@ -86,8 +76,8 @@ public class Ball {
         int yMin = -4;
         int yMax = 4;
         Random rand = new Random();
-        xChange = 4*xDirection;
-        yChange = yMin + (yMax  - yMin)*rand.nextDouble();
+        xChange = 4 * xDirection;
+        yChange = yMin + (yMax  - yMin) * rand.nextDouble();
         if (Math.abs(yChange) <= 0.3) {
             yChange = 1;
         }
