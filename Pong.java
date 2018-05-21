@@ -15,45 +15,45 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
 
 public class Pong extends Application {
-    private final int cWidth = 700;
-    private final int cHeight = 500;
+    private final int p2Width = 700;
+    private final int p2Height = 500;
 
-    private int scoreUser = 0;
-    private int scoreComputer = 0;
+    private int scoreplayer1 = 0;
+    private int scoreplayer2 = 0;
     double textSize = 30;
     String font = "Gotham";
-    Text uScore = new Text(cWidth/2 - 50 - 15, 40, "" + scoreUser);
-    Text cScore = new Text(cWidth/2 + 50, 40, "" + scoreComputer);
+    Text p1Score = new Text(p2Width/2 - 50 - 15, 40, "" + scoreplayer1);
+    Text p2Score = new Text(p2Width/2 + 50, 40, "" + scoreplayer2);
 
     static boolean down = false;
 
-    Canvas c = new Canvas(cWidth, cHeight);
-    private Paddle uPaddle; //user paddle
-    private Paddle cPaddle; //computer paddle
+    Canvas c = new Canvas(p2Width, p2Height);
+    private Paddle p1Paddle; //player1 paddle
+    private Paddle p2Paddle; //player2 paddle
     private Ball ball;
 
     public Pong() {
-        uPaddle = new Paddle(this, 20, cHeight/2, cWidth, cHeight, false);
-        cPaddle = new Paddle(this, cWidth - 20 - 30, cHeight/2, cWidth, cHeight, true);
-        ball = new Ball(this, cWidth, cHeight);
+        p1Paddle = new Paddle(this, 20, p2Height/2, p2Width, p2Height, false);
+        p2Paddle = new Paddle(this, p2Width - 20 - 30, p2Height/2, p2Width, p2Height, true);
+        ball = new Ball(this, p2Width, p2Height);
     }
 
     public void increaseScore(String paddle) {
-        if (paddle == "user") {
-            scoreUser++;
-            uScore.setText("" + scoreUser);
+        if (paddle == "player1") {
+            scoreplayer1++;
+            p1Score.setText("" + scoreplayer1);
         }
         else {
-            scoreComputer++;
-            cScore.setText("" + scoreComputer);
+            scoreplayer2++;
+            p2Score.setText("" + scoreplayer2);
         }
     }
     public Paddle getPlayer(String paddle) {
-        if (paddle == "user") {
-            return uPaddle;
+        if (paddle == "player1") {
+            return p1Paddle;
         }
         else {
-            return cPaddle;
+            return p2Paddle;
         }
     }
     public Ball getBall() {
@@ -64,10 +64,10 @@ public class Pong extends Application {
     public void start(Stage primary) {
         GraphicsContext pen = c.getGraphicsContext2D();
 
-        uScore.setFill(Color.WHITE);
-        cScore.setFill(Color.WHITE);
-        uScore.setFont(Font.font(font, FontWeight.BOLD, textSize));
-        cScore.setFont(Font.font(font, FontWeight.BOLD, textSize));
+        p1Score.setFill(Color.WHITE);
+        p2Score.setFill(Color.WHITE);
+        p1Score.setFont(Font.font(font, FontWeight.BOLD, textSize));
+        p2Score.setFont(Font.font(font, FontWeight.BOLD, textSize));
 
         BorderPane bp = new BorderPane();
         bp.setCenter(c);
@@ -76,8 +76,8 @@ public class Pong extends Application {
         primary.setScene(s);
         primary.setTitle("Pong");
 
-        bp.getChildren().add(uScore);
-        bp.getChildren().add(cScore);
+        bp.getChildren().add(p1Score);
+        bp.getChildren().add(p2Score);
 
         draw(pen);
 
@@ -85,16 +85,16 @@ public class Pong extends Application {
         s.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.UP) {
                 down = true;
-                uPaddle.move(-1, true);
+                p1Paddle.move(-1, true);
             }
             if (e.getCode() == KeyCode.DOWN) {
                 down = true;
-                uPaddle.move(1, true);
+                p1Paddle.move(1, true);
             }
         });
         s.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
-                uPaddle.move(1, false);
+                p1Paddle.move(1, false);
             }
         });
 
@@ -105,12 +105,12 @@ public class Pong extends Application {
                 draw(pen);
 
                 ball.update();
-                uPaddle.update();
-                cPaddle.update();
+                p1Paddle.update();
+                p2Paddle.update();
 
                 ball.paint(pen);
-                uPaddle.paint(pen);
-                cPaddle.paint(pen);
+                p1Paddle.paint(pen);
+                p2Paddle.paint(pen);
 
             }
         }.start();
@@ -121,10 +121,10 @@ public class Pong extends Application {
     public void draw(GraphicsContext pen) {
         //background
         pen.setFill(Color.BLACK);
-        pen.fillRect(0, 0, cWidth, cHeight);
+        pen.fillRect(0, 0, p2Width, p2Height);
 
         pen.setFill(Color.WHITE);
-        pen.fillRect(cWidth/2 - 1, 0, 2, cHeight);
+        pen.fillRect(p2Width/2 - 1, 0, 2, p2Height);
         //score
     }
 

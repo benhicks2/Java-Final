@@ -7,16 +7,16 @@ import java.util.Random;
 public class Ball {
     private Pong pong;
     private static final double width = 15, height = 15;
-    private double x, y, cWidth, cHeight;
+    private double x, y, p2Width, p2Height;
     private double xChange, yChange; //x and y velocity
-    private String user = "user", computer = "computer";
+    private String player1 = "player1", player2 = "player2";
 
-    public Ball(Pong pong, double cWidth, double cHeight) {
+    public Ball(Pong pong, double p2Width, double p2Height) {
         this.pong = pong;
-        this.cWidth = cWidth;
-        this.cHeight = cHeight;
-        x = cWidth/2;
-        y = cHeight/2;
+        this.p2Width = p2Width;
+        this.p2Height = p2Height;
+        x = p2Width/2;
+        y = p2Height/2;
         randomDirection(-1);
     }
     public void update() {
@@ -24,12 +24,12 @@ public class Ball {
         y += yChange;
 
         if (x < 0)
-            resetBall(computer);
-        else if (x > cWidth + width)
-            resetBall(user);
+            resetBall(player2);
+        else if (x > p2Width + width)
+            resetBall(player1);
         else if (y <= 0)
             yChange *= -1;
-        else if (y + height >= cHeight)
+        else if (y + height >= p2Height)
             yChange *= -1;
 
         checkCollision();
@@ -40,14 +40,14 @@ public class Ball {
     }
 
     public void checkCollision() {
-        Paddle userPaddle = pong.getPlayer(user);
-        Paddle computerPaddle = pong.getPlayer(computer);
-        double xPosUser = userPaddle.getXPos();
-        double xPosComputer = computerPaddle.getXPos();
-        if (userPaddle.getBounds().intersects(getBounds()) && x >= xPosUser + userPaddle.getWidth() - 6)
-            changeDirection(user);
-        if (computerPaddle.getBounds().intersects(getBounds()) && x + width <= xPosComputer + 6)
-            changeDirection(computer);
+        Paddle player1Paddle = pong.getPlayer(player1);
+        Paddle player2Paddle = pong.getPlayer(player2);
+        double xPosplayer1 = player1Paddle.getXPos();
+        double xPosplayer2 = player2Paddle.getXPos();
+        if (player1Paddle.getBounds().intersects(getBounds()) && x >= xPosplayer1 + player1Paddle.getWidth() - 6)
+            changeDirection(player1);
+        if (player2Paddle.getBounds().intersects(getBounds()) && x + width <= xPosplayer2 + 6)
+            changeDirection(player2);
     }
     public void changeDirection(String paddle) {
         xChange *= -1;
@@ -65,9 +65,9 @@ public class Ball {
         int yMin = -3;
         int yMax = 3;
         int xDirection = 1;
-        x = cWidth / 2;
-        y = cHeight / 2;
-        if (paddle == computer)
+        x = p2Width / 2;
+        y = p2Height / 2;
+        if (paddle == player2)
             xDirection = -1;
         randomDirection(xDirection);
         pong.increaseScore(paddle);
