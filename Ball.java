@@ -17,7 +17,7 @@ public class Ball {
         this.cHeight = cHeight;
         x = cWidth/2;
         y = cHeight/2;
-        randomDirection();
+        randomDirection(-1);
     }
     public void update() {
         x += xChange;
@@ -57,17 +57,18 @@ public class Ball {
     }
     public void changeDirection(String paddle) {
         xChange *= -1;
+        int yDiff = 1;
         if (pong.getPlayer(paddle).getMovement() < 0 && yChange < 0) {
-            yChange -= 0.5;
+            yChange -= yDiff;
         }
         else if (pong.getPlayer(paddle).getMovement() > 0 && yChange > 0) {
-            yChange += 0.5;
+            yChange += yDiff;
         }
         else if (pong.getPlayer(paddle).getMovement() > 0 && yChange < 0) {
-            yChange += 0.5;
+            yChange += yDiff;
         }
         else if (pong.getPlayer(paddle).getMovement() < 0 && yChange > 0) {
-            yChange -= 0.5;
+            yChange -= yDiff;
         }
     }
     public void resetBall(String paddle) {
@@ -77,13 +78,13 @@ public class Ball {
         x = cWidth/2;
         y = cHeight/2;
         if (paddle == computer)
-            xDirection = -1
+            xDirection = -1;
+        randomDirection(xDirection);
         pong.increaseScore(paddle);
     }
-    public void randomDirection() {
+    public void randomDirection(int xDirection) {
         int yMin = -3;
         int yMax = 3;
-        int xDirection = -1;
         Random rand = new Random();
         xChange = 3*xDirection;
         yChange = yMin + (yMax  - yMin)*rand.nextDouble();
