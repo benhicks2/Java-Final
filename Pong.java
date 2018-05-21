@@ -25,9 +25,6 @@ public class Pong extends Application {
     Text p1Score = new Text(p2Width/2 - 50 - 15, 40, "" + scoreplayer1);
     Text p2Score = new Text(p2Width/2 + 50, 40, "" + scoreplayer2);
 
-    static boolean p1Down = false;
-    static boolean p2Down = false;
-
     Canvas c = new Canvas(p2Width, p2Height);
     private Paddle p1Paddle; //player1 paddle
     private Paddle p2Paddle; //player2 paddle
@@ -84,36 +81,22 @@ public class Pong extends Application {
 
 //detect keypress
         s.setOnKeyPressed(a -> {
-            if (a.getCode() == KeyCode.W) {
-                p1Down = true;
+            if (a.getCode() == KeyCode.W)
                 p1Paddle.move(-1, true);
-            }
-            if (a.getCode() == KeyCode.S) {
-                p1Down = true;
+            if (a.getCode() == KeyCode.S)
                 p1Paddle.move(1, true);
-            }
+            if (a.getCode() == KeyCode.O)
+                p2Paddle.move(-1, true);
+            if (a.getCode() == KeyCode.L)
+                p2Paddle.move(1, true);
         });
         s.setOnKeyReleased(a -> {
-            if (a.getCode() == KeyCode.W || a.getCode() == KeyCode.S) {
+            if (a.getCode() == KeyCode.W || a.getCode() == KeyCode.S)
                 p1Paddle.move(1, false);
-            }
+            if (a.getCode() == KeyCode.O || a.getCode() == KeyCode.L)
+                p2Paddle.move(1, false);
         });
 
-        s.setOnKeyPressed(b -> {
-            if (b.getCode() == KeyCode.O) {
-                p2Down = true;
-                p2Paddle.move(-1, true);
-            }
-            if (b.getCode() == KeyCode.L) {
-                p2Down = true;
-                p2Paddle.move(1, true);
-            }
-        });
-        s.setOnKeyReleased(b -> {
-            if (b.getCode() == KeyCode.O || b.getCode() == KeyCode.L) {
-                p2Paddle.move(1, false);
-            }
-        });
 //animation
         final long startNanoTime = System.nanoTime();
         new AnimationTimer() {
